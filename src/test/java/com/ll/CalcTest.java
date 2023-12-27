@@ -83,6 +83,21 @@ public class CalcTest {
   @DisplayName("10 + 5 * 2== 20")
   void t15(){
     assertThat(Calc.run("10 + 5 * 2")).isEqualTo(20);  }
+
+  @Test
+  @DisplayName("10 - 5 - 2== 3")
+  void t16(){
+    assertThat(Calc.run("10 - 5 - 2")).isEqualTo(3);  }
+
+  @Test
+  @DisplayName("10 - 20 - 2== -12")
+  void t17(){
+    assertThat(Calc.run("10 - 20 - 2")).isEqualTo(-12);  }
+
+  @Test
+  @DisplayName("5 - 5 + 2== 2")
+  void t18(){
+    assertThat(Calc.run("5 - 5 + 2")).isEqualTo(2);  }
 }
 
 

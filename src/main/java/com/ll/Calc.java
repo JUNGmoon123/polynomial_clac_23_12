@@ -43,7 +43,8 @@ public class Calc {
    throw new RuntimeException("처리할 수 있는 계산식이 아닙니다");
 
   }
-
+  
+  //위에서 선언한 메소드를 함수로 만들어서 괄호제거후 반환
   private static String stringOuterBracket(String exp) {
     if(exp.charAt(0) == '(' && exp.charAt(exp.length()-1)==')'){
       exp = exp.substring(1, exp.length()-1);

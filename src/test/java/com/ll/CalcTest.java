@@ -98,6 +98,11 @@ public class CalcTest {
   @DisplayName("5 - 5 + 2== 2")
   void t18(){
     assertThat(Calc.run("5 - 5 + 2")).isEqualTo(2);  }
+
+  @Test
+  @DisplayName("(10 + 20)== 30")
+  void t19(){
+    assertThat(Calc.run("(10 + 20)")).isEqualTo(30);  }
 }
 
 

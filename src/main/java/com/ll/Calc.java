@@ -2,7 +2,7 @@ package com.ll;
 
 public class Calc {
   public static int run(String exp) {
-
+    exp = stringOuterBracket(exp);
     //-일때는 +/*둘다 false가 떠서 조건문 모두 해당하지않아서임.
     // 이제 이 고장난 기능을 고쳐야함.
     //전과 다른점은 ""안의 부호양옆에 공백을 추가해줬음
@@ -58,5 +58,13 @@ public class Calc {
     }
    throw new RuntimeException("처리할 수 있는 계산식이 아닙니다");
 
+  }
+
+  private static String stringOuterBracket(String exp) {
+    if(exp.charAt(0) == '(' && exp.charAt(exp.length()-1)==')'){
+      exp = exp.substring(1, exp.length()-1);
+
+    }
+    return exp;
   }
 }

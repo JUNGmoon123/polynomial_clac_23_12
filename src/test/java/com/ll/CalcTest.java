@@ -152,6 +152,11 @@ public class CalcTest {
   @DisplayName("800 + (10 + 5) == 815")
   void t29(){
     assertThat(Calc.run("800 + (10 + 5)")).isEqualTo(815);  }
+
+  @Test
+  @DisplayName("-(10 + 5) == -15")
+  void t30(){
+    assertThat(Calc.run("-(10 + 5)")).isEqualTo(-15);  }
 }
 
 

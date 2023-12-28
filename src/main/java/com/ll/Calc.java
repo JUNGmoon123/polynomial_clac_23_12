@@ -32,33 +32,30 @@ public class Calc {
     //(20 + 20) 와 20 으로 나눌려고함
     //charAt은 0부터 8인덱스까지 for문을 돌면서 어디서 자를지 인덱스구한다.
     if(needToSplit){
-      int bracketCount = 0;
-      int splitPointIndex = -1;   //인덱스 시작은 0부터이니 -1로 초기화해줌.
+      int splitPointIndex = findSplitPointIndex(exp);   //인덱스 시작은 0부터이니 -1로 초기화해줌.
 
-      //bracketCount는 ()가 열고닫고를 찾아서 짝을 찾는중.
-      for(int i = 0; i<exp.length(); i++){
-        if(exp.charAt(i)=='('){
-          bracketCount++;
-        }
-        else if(exp.charAt(i)==')') {
-          bracketCount--;
-        }
-        if(bracketCount==0) {
-          splitPointIndex = i; //i는 8이된다.
-          break;
-        }
-      }
-      // i는 8이였으니 8까지하면 닫는괄호가 빠지니 +1해줘서 닫는괄호까지 포함.
-      String firstExp = exp.substring(0, splitPointIndex+1);
-      //하나만 있으면 시작점만 알려줌
-      //+3은 (20+20)+20 뒤의 +20부분임.
-      String secondExp = exp.substring(splitPointIndex+3);
+      // ()소괄호를 판단하지 못함--> 문제발생
+//      for(int i = 0; i<exp.length(); i++) {
+//        if(exp.charAt(i)=='('){
+//          bracketCount++;
+//        }
+//        else if(exp.charAt(i)==')') {
+//          bracketCount--;
+//        }
+//        if(bracketCount==0) {
+//          splitPointIndex = i;
+//          break;
+//        }
+//      }
 
-      //t27 * 문제 해결 연산
-      char operator = exp.charAt(splitPointIndex+2);
+      String firstExp = exp.substring(0, splitPointIndex);
+      String secondExp = exp.substring(splitPointIndex+1);
+
+      // splitPointIndex 이 가리키고 있는건 연산자가 된다.
+      char operator = exp.charAt(splitPointIndex);
       //exp는 문자열이니까 String으로 다 엮어버린다.
       //위의 operator이용
-      exp = Calc.run(firstExp) +" "+operator+" "+ Calc.run(secondExp);
+      exp = Calc.run(firstExp) + " " + operator + " " + Calc.run(secondExp);
 
       return Calc.run(exp);
     }
@@ -101,7 +98,52 @@ public class Calc {
    throw new RuntimeException("처리할 수 있는 계산식이 아닙니다");
 
   }
-  
+
+
+  //()찾는걸 메소드로 만들어서 처리할거임.
+  //이제 괄호의 위치는 중요하지 않음.
+  //이제 문제는 for문이 안쪽에서 2개가 돌아간다, 이걸 다시 수정할거임.
+  private static int findSplitPointIndex(String exp) {
+    int bracketCount = 0;
+
+    for(int i = 0; i <exp.length(); i++){
+      char c = exp.charAt(i);
+
+      switch (c){
+        case '(':
+          bracketCount++;
+          break;
+        case ')':
+          bracketCount--;
+          break;
+        case '+':
+          if(bracketCount==0){
+            return i;
+          }
+      }
+    }
+
+    bracketCount = 0;
+    //* 연산자 있을떄 처리.
+    for(int i = 0; i <exp.length(); i++){
+      char c = exp.charAt(i);
+
+      switch (c){
+        case '(':
+          bracketCount++;
+          break;
+        case ')':
+          bracketCount--;
+          break;
+        case '*':
+          if(bracketCount==0){
+            return i;
+          }
+      }
+    }
+    return -1;
+  }
+
   //위에서 선언한 메소드를 함수로 만들어서 괄호제거후 반환
   private static String stringOuterBracket(String exp) {
 

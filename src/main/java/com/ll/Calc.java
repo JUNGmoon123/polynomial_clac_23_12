@@ -15,7 +15,11 @@ public class Calc {
 //      return Integer.parseInt(exp);
 //    }
     //이렇게 해도됨, 괄호안에 아무것도 없을떄.
-    if(!exp.contains(" ")) return Integer.parseInt(exp);
+
+    if(!exp.contains(" ")) {
+      return Integer.parseInt(exp);
+    }
+
 
     boolean needToMultiply = exp.contains(" * ");
     boolean needToPlus = exp.contains(" + ") || exp.contains(" - ");
@@ -50,15 +54,20 @@ public class Calc {
       //+3은 (20+20)+20 뒤의 +20부분임.
       String secondExp = exp.substring(splitPointIndex+3);
 
-      return Calc.run(firstExp) + Calc.run(secondExp);
+      //t27 * 문제 해결 연산
+      char operator = exp.charAt(splitPointIndex+2);
+      //exp는 문자열이니까 String으로 다 엮어버린다.
+      //위의 operator이용
+      exp = Calc.run(firstExp) +" "+operator+" "+ Calc.run(secondExp);
+
+      return Calc.run(exp);
     }
-
-
 
     //재귀함수
     else if(needToCompound){
       String[] bits = exp.split(" \\+ ");
-      return Integer.parseInt(bits[0]) + run(bits[1]);    // todo(개선)
+
+        return Integer.parseInt(bits[0]) + run(bits[1]);    // todo(개선)
     }
     if (needToPlus) {
       exp = exp.replaceAll("\\- ", "\\+ \\-");

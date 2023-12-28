@@ -100,48 +100,31 @@ public class Calc {
   }
 
 
-  //()찾는걸 메소드로 만들어서 처리할거임.
-  //이제 괄호의 위치는 중요하지 않음.
-  //이제 문제는 for문이 안쪽에서 2개가 돌아간다, 이걸 다시 수정할거임.
-  private static int findSplitPointIndex(String exp) {
+  private static int findSplitPointIndexBy(String exp, char findChar) {
     int bracketCount = 0;
 
-    for(int i = 0; i <exp.length(); i++){
+    for (int i = 0; i < exp.length(); i++) {
       char c = exp.charAt(i);
 
-      switch (c){
-        case '(':
-          bracketCount++;
-          break;
-        case ')':
-          bracketCount--;
-          break;
-        case '+':
-          if(bracketCount==0){
-            return i;
-          }
-      }
-    }
+      if (c == '(') {
+        bracketCount++;
+      } else if (c == ')') {
+        bracketCount--;
+      } else if (c == findChar) {
+        if (bracketCount == 0) {
+          return i;
+        }
 
-    bracketCount = 0;
-    //* 연산자 있을떄 처리.
-    for(int i = 0; i <exp.length(); i++){
-      char c = exp.charAt(i);
-
-      switch (c){
-        case '(':
-          bracketCount++;
-          break;
-        case ')':
-          bracketCount--;
-          break;
-        case '*':
-          if(bracketCount==0){
-            return i;
-          }
       }
     }
     return -1;
+  }
+  private static int findSplitPointIndex(String exp) {
+    int index = findSplitPointIndexBy(exp, '+');
+
+    if (index >= 0) return index;
+
+    return findSplitPointIndexBy(exp, '*');
   }
 
   //위에서 선언한 메소드를 함수로 만들어서 괄호제거후 반환

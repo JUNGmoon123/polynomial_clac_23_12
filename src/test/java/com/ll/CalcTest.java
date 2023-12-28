@@ -147,6 +147,11 @@ public class CalcTest {
   @DisplayName("10 + (10 + 5) == 25")
   void t28(){
     assertThat(Calc.run("10 + (10 + 5)")).isEqualTo(25);  }
+
+  @Test
+  @DisplayName("800 + (10 + 5) == 815")
+  void t29(){
+    assertThat(Calc.run("800 + (10 + 5)")).isEqualTo(815);  }
 }
 
 

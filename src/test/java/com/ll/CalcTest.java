@@ -162,6 +162,26 @@ public class CalcTest {
   @DisplayName("-(8 + 2) * -(7 + 3) + 5 == 105")
   void t31(){
     assertThat(Calc.run("-(8 + 2) * -(7 + 3) + 5")).isEqualTo(105);  }
+
+  @Test
+  @DisplayName("5 - (1 + 5) == -1")
+  void t32(){
+    assertThat(Calc.run("5 - (1 + 5)")).isEqualTo(-1);  }
+
+  @Test
+  @DisplayName("3 * 1 + (1 - (4 * 1 - (1 - 1))) == 0")
+  void t33(){
+    assertThat(Calc.run("3 * 1 + (1 - (4 * 1 - (1 - 1)))")).isEqualTo(0);  }
+
+  @Test
+  @DisplayName("1 * 2 + 3 == 5")
+  void t34(){
+    assertThat(Calc.run("1 * 2 + 3")).isEqualTo(5);  }
+
+  @Test
+  @DisplayName("2 * 2 + 3 == 7")
+  void t35(){
+    assertThat(Calc.run("2 * 2 + 3")).isEqualTo(7);  }
 }
 
 
